@@ -47,6 +47,12 @@ function filterByQuery(query, animalsArray) {
     return filteredResults;
 }
 
+//findbyid takes an array of animals and returns animals objects
+function findById(id,animalsArray) {
+    const result = animalsArray.filter(animal => animal.id === id)[0];
+    return result;
+}
+
 //add animals route
 app.get('/api/animals', (req, res) => {
     let results = animals;
@@ -54,6 +60,16 @@ app.get('/api/animals', (req, res) => {
         results = filterByQuery(req.query, results);
     };
     res.json(results);
+});
+
+//new get route for animals
+app.get('/api/animals/:id', (req, res) => {
+    const result = findById(req.params.id, animals);
+    if (result) {
+        res.json(result);
+    } else {
+        res.send(404);
+    }
 });
 
 //chain listen() method to express variable 'app'
