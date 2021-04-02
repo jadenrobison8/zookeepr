@@ -15,6 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 //parse incoming JSON data
 app.use(express.json());
 
+//GET all front end css and js routes
+app.use(express.static('public'));
 
 //filter function
 function filterByQuery(query, animalsArray) {
@@ -124,6 +126,26 @@ app.post('/api/animals', (req,res) => {
         const animal = createNewAnimal(req.body, animals);
         res.json(animal);
     }
+});
+
+//route used to create a homepage for a server. communicates with html file
+app.get('/', (req,res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+//route to animals html page
+app.get('/animals', (req,res) => {
+    res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+
+//route to zookeepers html
+app.get('/zookeepers', (req,res) => {
+    res.sendFile(path.join(__dirname, './public/zookeepers.html'));
+});
+
+//wildcard route(should always be the last route)
+app.get('*', (req,res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
 //chain listen() method to express variable 'app'
