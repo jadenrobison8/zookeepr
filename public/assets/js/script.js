@@ -1,6 +1,6 @@
 const $animalForm = document.querySelector('#animal-form');
 
-const handleAnimalFormSubmit = event => {
+function handleAnimalFormSubmit(event) {
   event.preventDefault();
 
   // get animal data and organize it
@@ -31,7 +31,7 @@ const handleAnimalFormSubmit = event => {
     method: 'POST',
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json'    
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(animalObject)
   })
@@ -45,6 +45,6 @@ const handleAnimalFormSubmit = event => {
       console.log(postResponse);
       alert('Thank you for adding an animal!');
     });
-};
+}
 
 $animalForm.addEventListener('submit', handleAnimalFormSubmit);
